@@ -1,16 +1,10 @@
 
 
 const fields = [
-    'cross', 
-    'circle', 
-    'circle',
-     null,
-    'cross', 
-    'circle',
-    'cross',
-     null, 
-    'circle'
+ 
   ];
+
+  let currentPlayer = 'cross';
 
   function init(){
     rendern()
@@ -32,6 +26,15 @@ const fields = [
           cell.innerHTML = generateAnimatedXSVG();
         } else if (fieldValue === 'circle') {
           cell.innerHTML = generateAnimatedCircleSVG();
+        }else {
+          cell.onclick = () => {
+            if (!fieldValue) {
+              fields[cellIndex] = currentPlayer;
+              cell.innerHTML = currentPlayer === 'cross' ? generateAnimatedXSVG() : generateAnimatedCircleSVG();
+              cell.onclick = null;
+              currentPlayer = currentPlayer === 'cross' ? 'circle' : 'cross';
+            }
+          };
         }
         
         row.appendChild(cell);
